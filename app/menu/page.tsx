@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 import Link from "next/link"
 
 const menuItems = [
@@ -408,7 +408,7 @@ const menuItems = [
   },
 ]
 
-export default function MenuPage() {
+function MenuPage() {
   const [activeCategory, setActiveCategory] = useState("ALL")
 
   const categories = ["ALL", "PASTA", "ON DEMAND", "PIZZA", "ORIENTAL & INDO CHINESE", "GARLIC BREAD & TOASTIES", "CHEF'S SPECIAL", "SANDWICHES", "WINGS"]
@@ -517,3 +517,5 @@ export default function MenuPage() {
     </div>
   )
 }
+
+export default memo(MenuPage)

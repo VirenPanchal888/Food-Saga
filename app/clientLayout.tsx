@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Navigation from "@/components/navigation"
 import SplashScreen from "@/components/splash-screen"
+import PageLoader from "@/components/page-loader"
 
 interface ClientLayoutProps {
   children: React.ReactNode
@@ -43,6 +44,7 @@ export default function ClientLayout({ children, fontVariable }: ClientLayoutPro
       </head>
       <body className="font-sans antialiased">
         {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+        <PageLoader />
 
         <div className={`transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
           <Navigation />

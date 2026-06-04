@@ -1,12 +1,17 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, memo } from "react"
+import dynamic from "next/dynamic"
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronDown } from "lucide-react"
-import VideoBackground from "@/components/video-background"
 
-export default function HomePage() {
+const VideoBackground = dynamic(() => import("@/components/video-background"), {
+  loading: () => <div className="h-screen bg-black" />,
+  ssr: false,
+})
+
+function HomePage() {
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
@@ -181,3 +186,5 @@ export default function HomePage() {
     </div>
   )
 }
+
+export default memo(HomePage)

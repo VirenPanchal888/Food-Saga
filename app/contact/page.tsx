@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, memo } from "react"
 import { MapPin, Phone, Clock, ExternalLink, Volume2, VolumeX, Play, Pause, MessageCircle } from "lucide-react"
 
-export default function ContactPage() {
+function ContactPage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
@@ -465,3 +465,5 @@ export default function ContactPage() {
     </div>
   )
 }
+
+export default memo(ContactPage)

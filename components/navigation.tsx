@@ -1,9 +1,40 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, memo, useMemo } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown, Coffee, Utensils, Cake, Leaf } from "lucide-react"
+
+const menuCategories = {
+  PASTA: {
+    icon: Utensils,
+    items: [
+      { name: "Veg Pasta", href: "/menu#veg-pasta" },
+      { name: "Non-Veg Pasta", href: "/menu#nonveg-pasta" },
+    ],
+  },
+  PIZZA: {
+    icon: Cake,
+    items: [
+      { name: "Veg Pizza", href: "/menu#veg-pizza" },
+      { name: "Non-Veg Pizza", href: "/menu#nonveg-pizza" },
+    ],
+  },
+  COFFEE: {
+    icon: Coffee,
+    items: [
+      { name: "Hot Coffee", href: "/menu#hot-coffee" },
+      { name: "Cold Coffee", href: "/menu#cold-coffee" },
+    ],
+  },
+  BOWLS: {
+    icon: Leaf,
+    items: [
+      { name: "Acai Bowls", href: "/menu#acai-bowls" },
+      { name: "Granola Bowls", href: "/menu#granola-bowls" },
+    ],
+  },
+}
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -39,24 +70,24 @@ export default function Navigation() {
     setIsMegaMenuOpen(false)
   }, [pathname])
 
-},
+  const mainNavItems = useMemo(
+    () => [
+      { name: "HOME", href: "/" },
+      { name: "ABOUT", href: "/about" },
+      { name: "MENU", href: "/menu" },
+      { name: "EXPERIENCE", href: "/experience" },
+      { name: "CONTACT", href: "/contact" },
+    ],
+    [],
+  )
+
+  const handleDropdownToggle = (category: string) => {
+    setActiveDropdown(activeDropdown === category ? null : category)
   }
 
-const mainNavItems = [
-  { name: "HOME", href: "/" },
-  { name: "ABOUT", href: "/about" },
-  { name: "MENU", href: "/menu" },
-  { name: "EXPERIENCE", href: "/experience" },
-  { name: "CONTACT", href: "/contact" },
-]
-
-const handleDropdownToggle = (category: string) => {
-  setActiveDropdown(activeDropdown === category ? null : category)
-}
-
-return (
-  <>
-    <nav
+  return (
+    <>
+      <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen || isMegaMenuOpen || pathname === "/experience"
           ? "bg-black bg-opacity-90 backdrop-blur-md"
           : "bg-transparent"
@@ -186,6 +217,8 @@ return (
         </div>
       </div>
     )}
-  </>
-)
+    </>
+  )
 }
+
+export default memo(Navigation)

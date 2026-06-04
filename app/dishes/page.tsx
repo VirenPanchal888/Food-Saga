@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
 
@@ -87,7 +87,7 @@ const dishes = [
   },
 ]
 
-export default function DishesPage() {
+function DishesPage() {
   const [selectedDish, setSelectedDish] = useState<(typeof dishes)[0] | null>(null)
   const [visibleDishes, setVisibleDishes] = useState(dishes)
 
@@ -240,3 +240,5 @@ export default function DishesPage() {
     </div>
   )
 }
+
+export default memo(DishesPage)

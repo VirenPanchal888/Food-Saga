@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, memo } from "react"
 import Image from "next/image"
 
 const allGalleryItems = [
@@ -286,7 +286,7 @@ interface VideoState {
   hasUserInteracted: boolean
 }
 
-export default function ExperiencePage() {
+function ExperiencePage() {
   const [selectedItem, setSelectedItem] = useState<(typeof allGalleryItems)[0] | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [validItems, setValidItems] = useState<typeof allGalleryItems>([])
@@ -1080,3 +1080,5 @@ export default function ExperiencePage() {
     </div>
   )
 }
+
+export default memo(ExperiencePage)

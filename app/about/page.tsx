@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useRef, useState, useCallback, memo } from "react"
 import Image from "next/image"
 
-export default function AboutPage() {
+function AboutPage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -469,3 +469,5 @@ export default function AboutPage() {
     </div>
   )
 }
+
+export default memo(AboutPage)
