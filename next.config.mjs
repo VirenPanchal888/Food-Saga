@@ -72,13 +72,59 @@ const nextConfig = {
     ]
   },
 
-  // Experimental features for better video handling
+  // Experimental features for better video handling and performance
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-*'],
+    dynamicIO: true,
+  },
+
+  // Optimized redirects for better navigation
+  async redirects() {
+    return [
+      {
+        source: '/dishes',
+        destination: '/menu',
+        permanent: true,
+      },
+    ]
+  },
+
+  // Rewrites to optimize internal routing
+  async rewrites() {
+    return {
+      beforeFiles: [],
+    }
   },
 
   typescript: {
     ignoreBuildErrors: true,
+  },
+
+  // Enable GZIP compression for better performance
+  compress: true,
+
+  // Optimize webpack bundle
+  webpack: (config) => {
+    config.optimization = {
+      ...config.optimization,
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          vendor: {
+            filename: 'vendor.js',
+            chunks: 'all',
+            reuseExistingChunk: true,
+            priority: 20,
+            test: /node_modules/,
+            enforce: true,
+          },
+        },
+      },
+    }
+    return config
   },
 }
 
